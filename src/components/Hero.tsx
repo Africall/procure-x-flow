@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import heroDashboard from "@/assets/hero-dashboard.jpg";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const { session } = useAuth();
+
+  const handleGetStarted = () => {
+    navigate(session ? "/app/dashboard" : "/auth");
+  };
+
   return (
     <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-subtle">
       <div className="container mx-auto">
@@ -30,6 +39,8 @@ export const Hero = () => {
               <Button 
                 size="lg" 
                 className="bg-gradient-primary hover:opacity-90 transition-opacity shadow-glow group"
+                onClick={handleGetStarted}
+                aria-label="Start your free trial"
               >
                 Start Free Trial
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

@@ -1,7 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 export const CTA = () => {
+  const navigate = useNavigate();
+  const { session } = useAuth();
+
+  const handleGetStarted = () => {
+    navigate(session ? "/app/dashboard" : "/auth");
+  };
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
@@ -21,6 +30,9 @@ export const CTA = () => {
                 size="lg" 
                 variant="secondary"
                 className="bg-background text-foreground hover:bg-background/90 group"
+                onClick={handleGetStarted}
+                aria-label="Start your free trial"
+                title="Go to ProcureX"
               >
                 Start Free Trial
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

@@ -1,9 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { session } = useAuth();
+
+  const handleGetStarted = () => {
+    navigate(session ? "/app/dashboard" : "/auth");
+  };
+
+  const handleSignIn = () => {
+    navigate(session ? "/app/dashboard" : "/auth");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -26,8 +38,19 @@ export const Navbar = () => {
             <a href="#pricing" className="text-foreground hover:text-primary transition-colors">
               Pricing
             </a>
-            <Button variant="ghost">Sign In</Button>
-            <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+            <Button 
+              variant="ghost" 
+              onClick={handleSignIn}
+              aria-label="Sign in to ProcureX"
+            >
+              Sign In
+            </Button>
+            <Button 
+              className="bg-gradient-primary hover:opacity-90 transition-opacity"
+              onClick={handleGetStarted}
+              aria-label="Get started with ProcureX"
+              data-testid="cta-get-started"
+            >
               Get Started
             </Button>
           </div>
@@ -55,8 +78,19 @@ export const Navbar = () => {
               Pricing
             </a>
             <div className="space-y-2 pt-4">
-              <Button variant="ghost" className="w-full">Sign In</Button>
-              <Button className="w-full bg-gradient-primary">Get Started</Button>
+              <Button 
+                variant="ghost" 
+                className="w-full"
+                onClick={handleSignIn}
+              >
+                Sign In
+              </Button>
+              <Button 
+                className="w-full bg-gradient-primary"
+                onClick={handleGetStarted}
+              >
+                Get Started
+              </Button>
             </div>
           </div>
         )}
